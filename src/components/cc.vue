@@ -1,44 +1,35 @@
 <template>
      <div>
         <section id="todoapp" class="todoapp">
-        <header class="header">
-            <h1>todolist</h1>
-            <input placeholder="添加任务项" @keyup.enter="addTodo" class="new-todo" v-model="aa">
-        </header>
-        <section class="main">
-            <input  id="toggle-all" type="checkbox" class="toggle-all">
-            <label for="toggle-all">Mark all as complete</label>
-            </section>
-        </section>
-    </div>
+            <footer class="footer">
+            <span class="todo-count"><strong>{{shuliang}}</strong> item left</span>
+        </footer>
+       </section>
+    </div> 
 </template>
 
 <script>
-
-import {reactive, ref} from 'vue'
-
-    export default {
-        props:['renwu'],
-       setup(props){
-        let aa=ref('')
-        let add =reactive({})
-        let addTodo=()=>{
-              add={
-                cc:aa.value,
-                completed:false
-              }
-              props.renwu.push(add)
-              aa.value=''
-        }
-          return{
-             aa,
-            add,
-            addTodo
-          }
-       }
+import { watch,ref } from "@vue/runtime-core";
+export default {
+   props:['renwu'],
+   setup(props){
+      let shuliang=ref('')
+   watch(props.renwu,()=>{
+      shuliang.value= props.renwu.length
+   },{
+      immediate:true
+   })
+      return {
+         shuliang
+      }   
+   }
+   
+}
+    
        
-     
-    }
+
+    
+       
 </script>
 
 <style>
